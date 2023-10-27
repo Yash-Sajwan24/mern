@@ -2,10 +2,16 @@ const jwt = require('jsonwebtoken');
 const express = require('express');
 const router = express.Router();
 
+const cookieParser = require("cookie-parser");
+router.use(cookieParser());
+
 require("../db/database");
 
 const User = require("../model/UserSchema");
 const bcrypt = require('bcryptjs');
+
+const authenticate = require('../middleware/authenticate');
+
 
 router.get('/', (req, res) => {
     res.send("hello from server router");
@@ -50,6 +56,7 @@ router.post('/signin', async (req, res) => {
 
             token = await userLogin.generateAuthToken();
 
+            //jwtoken is the name 
             res.cookie('jwtoken', token, {
                 expires: new Date(Date.now() + 25892000000),
                 httpOnly: true,
@@ -69,6 +76,10 @@ router.post('/signin', async (req, res) => {
     catch(error) {
         console.log(error);
     }
+});
+
+router.get('/about',authenticate,  (req, res)=>{
+    res.send(req.rootUser);
 });
 
 module.exports = router;

@@ -13,18 +13,14 @@ app.use(require('./util/auth'));
 
 const port = process.env.PORT;
 
-const middleware = (req, res, next) => {
-    console.log("this is the middleware");
-    next();
-};
+// const middleware = (req, res, next) => {
+//     console.log("this is the middleware");
+//     next();
+// };
 
-app.get('/',middleware , (req, res) =>{
-    res.send("this is the home page");
-});
-
-app.get('/about', (req, res)=>{
-    res.send("this is the about section");
-});
+// app.get('/about',middleware,  (req, res)=>{
+//     res.send("this is the about section");
+// });
 
 app.get('/contact', (req, res)=>{
     // res.cookie("Test", "Yash is pro gamer");
