@@ -53,19 +53,19 @@ router.post('/signin', async (req, res) => {
         
         if(userLogin){
             const isMatch = await bcrypt.compare(password, userLogin.password);
-
-            token = await userLogin.generateAuthToken();
-
-            //jwtoken is the name 
-            res.cookie('jwtoken', token, {
-                expires: new Date(Date.now() + 25892000000),
-                httpOnly: true,
-            });
-
             if(!isMatch){
                 res.status(402).json({error: "Invalid Credentials"});
             }
             else{
+                token = await userLogin.generateAuthToken();
+
+                //jwtoken is the name 
+                res.cookie('jwtoken', token, {
+                    expires: new Date(Date.now() + 25892000000),
+                    httpOnly: true,
+                });
+    
+               
                 res.status(200).json({message : "Successfully logged in "});
             }
         }
