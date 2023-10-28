@@ -13,11 +13,11 @@ const bcrypt = require('bcryptjs');
 const authenticate = require('../middleware/authenticate');
 
 
-router.get('https://mernbackend-0so8.onrender.com/home',authenticate,  (req, res) => {
+router.get('/home',authenticate,  (req, res) => {
     res.send(req.rootUser);
 });
 
-router.post('https://mernbackend-0so8.onrender.com/register',async (req, res) => {
+router.post('/register',async (req, res) => {
     const {name, email, password,  phone}  = req.body;
     
     if(!name || !email || !password || !phone){
@@ -40,7 +40,7 @@ router.post('https://mernbackend-0so8.onrender.com/register',async (req, res) =>
     }
 });
 
-router.post('https://mernbackend-0so8.onrender.com/signin', async (req, res) => {
+router.post('/signin', async (req, res) => {
     const {email , password} = req.body;
     let token;
 
@@ -78,20 +78,20 @@ router.post('https://mernbackend-0so8.onrender.com/signin', async (req, res) => 
     }
 });
 
-router.get('https://mernbackend-0so8.onrender.com/about',authenticate,  (req, res)=>{
+router.get('/about',authenticate,  (req, res)=>{
     res.send(req.rootUser);
 });
 
-router.get('https://mernbackend-0so8.onrender.com/getdata',authenticate,  (req, res)=>{
+router.get('/getdata',authenticate,  (req, res)=>{
     res.send(req.rootUser);
 });
 
-router.get('https://mernbackend-0so8.onrender.com/logout',  (req, res)=>{
+router.get('/logout',  (req, res)=>{
     res.clearCookie('jwtoken', {path : '/'});// if there is no cookie it goes to the home page
     res.status(200).send("User logout");
 });
 
-router.post('https://mernbackend-0so8.onrender.com/contact',authenticate, async (req, res)=>{
+router.post('/contact',authenticate, async (req, res)=>{
     
     const {name, email, phone, message} = req.body;
 
