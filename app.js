@@ -3,11 +3,7 @@ const cors = require("cors");
 const app = express();
 const dotenv = require('dotenv');
 
-app.use(cors({
-    origin : [
-        "http://localhost:3000", "https://mernportal.onrender.com/"
-    ],
-}));
+app.use(cors());
 
 dotenv.config();
 
