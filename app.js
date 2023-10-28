@@ -4,7 +4,7 @@ const app = express();
 const dotenv = require('dotenv');
 
 app.use(cors({
-    origin : ["https://mern-frontend-ashen.vercel.app/login", "http://localhost:3000"],
+    origin : ["https://mern-frontend-ashen.vercel.app"],
     methods: ["POST", "GET"],
     credentials: true
 }));
