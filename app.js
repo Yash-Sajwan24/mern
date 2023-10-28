@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const dotenv = require('dotenv');
+app.use(cors());
 
 dotenv.config();
 
@@ -11,7 +13,7 @@ app.use(express.json());
 app.use(require('./util/auth'));
 // const user = require('./model/UserSchema');
 
-const port = process.env.PORT || 4000;
+const port =  process.env.PORT || 4000;
 
 // const middleware = (req, res, next) => {
 //     console.log("this is the middleware");
