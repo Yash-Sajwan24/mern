@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(require('./util/auth'));
 // const user = require('./model/UserSchema');
 
-const port = process.env.PORT;
+const port = process.env.PORT || 4000;
 
 // const middleware = (req, res, next) => {
 //     console.log("this is the middleware");
