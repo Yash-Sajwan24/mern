@@ -22,11 +22,6 @@ const port = process.env.PORT;
 //     res.send("this is the about section");
 // });
 
-app.get('/contact', (req, res)=>{
-    // res.cookie("Test", "Yash is pro gamer");
-    res.send("this is the contact section");
-});
-
 app.listen(port, () => {
     console.log(`the server is running on port ${port}`);
 });

@@ -13,8 +13,8 @@ const bcrypt = require('bcryptjs');
 const authenticate = require('../middleware/authenticate');
 
 
-router.get('/', (req, res) => {
-    res.send("hello from server router");
+router.get('/home',authenticate,  (req, res) => {
+    res.send(req.rootUser);
 });
 
 router.post('/register',async (req, res) => {
@@ -80,6 +80,42 @@ router.post('/signin', async (req, res) => {
 
 router.get('/about',authenticate,  (req, res)=>{
     res.send(req.rootUser);
+});
+
+router.get('/getdata',authenticate,  (req, res)=>{
+    res.send(req.rootUser);
+});
+
+router.get('/logout',  (req, res)=>{
+    res.clearCookie('jwtoken', {path : '/'});// if there is no cookie it goes to the home page
+    res.status(200).send("User logout");
+});
+
+router.post('/contact',authenticate, async (req, res)=>{
+    
+    const {name, email, phone, message} = req.body;
+
+    if(!name || !email || !phone || !message){
+        return res.status(402).json({error: "Enter data in all the fields."});
+    }
+
+    try{
+        const sendMessage =await User.findOne({_id : req.userID});
+        if(sendMessage){
+            const messageReceived = await sendMessage.addMessage(name, email, phone, message);
+            await sendMessage.save();
+
+            res.status(200).json({message : "Successfully added"});
+        }
+        else{
+            res.status(402).json({error: "Login first"});
+        }
+    }
+    catch(err){
+        res.status(402).json({error: "Some Error Occurred."});
+    }
+
+
 });
 
 module.exports = router;
